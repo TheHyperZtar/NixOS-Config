@@ -3,7 +3,8 @@
 {
   imports =
     [
-      ./hardware-configuration.nix
+      #./hardware-configuration.nix
+      ./../../disko.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -66,7 +67,7 @@
     xwayland.enable = true;
   };
 
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   system.stateVersion = "24.05";
 

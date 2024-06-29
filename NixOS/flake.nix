@@ -4,8 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
-    inputs.disko.url = "github:nix-community/disko";
-    inputs.disko.inputs.nixpkgs.follows = "nixpkgs";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -29,10 +29,10 @@
         ];
       };
     };
-  };
 
-  home.Configurations.TheHyperZtar = home-manager.lib.homeManagerConfiguration {
-    pkgs = nixpkgs.legacyPackages.${system};
-    modules = [ ./hosts/THZ-PC/home.nix ];
+    home.Configurations.TheHyperZtar = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.${system};
+      modules = [ ./hosts/THZ-PC/home.nix ];
+    };
   };
 }
