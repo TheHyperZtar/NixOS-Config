@@ -1,18 +1,16 @@
-{ config, lib, pkgs, ... }:
-
 {
-  disko.devices.disk = {
-    vda = {
+  device = "/dev/vda"
+}: {
+  disko.devices = {
+    disk.main = {
+      inherit device;
       type = "disk";
-      device = "/dev/vda";
       content = {
         type = "gpt";
         partitions = {
-          vda1 = {
-            priority = 1;
-            name = "ESP";
-            start = "1M";
-            end = "1GiB";
+          Boot = {
+            name = "THZ-BOOT";
+            size = "1G";
             type = "EF00";
             content = {
               type = "filesystem";
@@ -22,70 +20,46 @@
               mountOptions = [ "noatime" ];
             };
           };
-          vda2 = {
+          Root = {
+            name = "THZ-NixOS";
             size = "100%";
             content = {
+              type = "lvm_pv";
+              vg = "root_vg";
+            };
+          };
+        };
+      };
+    };
+    lvm_vg = {
+      root_vg = {
+        type = "lvm_vg";
+        lvs = {
+          root = {
+            size = "100%FREE";
+            content = {
               type = "btrfs";
-              extraArgs = [ "-f -L THZ-NixOS" ]; # Override existing partition
+              extraArgs = [ "-f -L THZ-NixOS" ];
+
               subvolumes = {
-                "/rootfs" = { mountpoint = "/"; };
-                "/home" = {
+                "/@" = {
+                  mountpoint = "/";
+                };
+
+                "/@home" = {
+                  mountOptions = ["subvol=@home" "noatime"];
                   mountpoint = "/home";
-                  mountOptions = [ "compress=zstd" ];
                 };
-                "/nix" = {
+
+                "/@nix" = {
+                  mountOptions = ["subvol=@nix" "noatime"];
                   mountpoint = "/nix";
-                  mountOptions = [ "compress=zstd" "noatime" ];
-                };
-                "/swap" = {
-                  mountpoint = "/swap";
-                  swap = {
-                    swapfile.size = "8G";
-                  };
                 };
               };
-              mountpoint = "/partition-root";
-              mountOptions = [ "noatime" ];
             };
           };
         };
       };
     };
   };
-
-  fileSystems = lib.mkForce {
-    "/" = {
-      device = "/dev/disk/by-label/THZ-NixOS";
-      fsType = "btrfs";
-      options = [ "noatime" ];
-    };
-    "/home" = {
-      device = "/dev/disk/by-label/THZ-NixOS/home";
-      fsType = "btrfs";
-      options = [ "compress=zstd" ];
-    };
-    "/boot" = {
-      device = "/dev/disk/by-label/THZ-BOOT";
-      fsType = "vfat";
-      options = [ "noatime" ];
-    };
-    "/nix" = {
-      device = "/dev/disk/by-label/THZ-NixOS/nix";
-      fsType = "btrfs";
-      options = [ "compress=zstd" "noatime" ];
-    };
-    "/swap" = {
-      device = "/dev/disk/by-label/THZ-NixOS/swap";
-      fsType = "btrfs";
-      options = [ "noatime" ];
-    };
-  };
-
-  swapDevices = [
-    {
-      device = "/swap/swapfile";
-      size = 8192; # 8GB
-    }
-  ];
 }
-
