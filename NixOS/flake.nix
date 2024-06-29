@@ -24,15 +24,16 @@
       THZ-PC = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          ./hosts/THZ-PC/configuration.nix
           disko.nixosModules.disko
+          (import ./disko.nix { device = "/dev/vda"; })
+          ./hosts/THZ-PC/configuration.nix
         ];
       };
     };
 
-    home.Configurations.TheHyperZtar = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.${system};
-      modules = [ ./hosts/THZ-PC/home.nix ];
-    };
+    #home.Configurations.TheHyperZtar = home-manager.lib.homeManagerConfiguration {
+      #pkgs = nixpkgs.legacyPackages.${system};
+      #modules = [ ./hosts/THZ-PC/home.nix ];
+    #};
   };
 }
