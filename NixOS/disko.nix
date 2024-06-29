@@ -1,5 +1,6 @@
 {
-  device = "/dev/vda"
+  device ? throw
+  ...
 }: {
   disko.devices = {
     disk.main = {
