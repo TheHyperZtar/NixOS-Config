@@ -1,5 +1,5 @@
 {
-  device ? throw
+  device ? throw ,
   ...
 }: {
   disko.devices = {
