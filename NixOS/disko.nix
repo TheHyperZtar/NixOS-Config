@@ -83,7 +83,7 @@
 
   swapDevices = [
     {
-      device = "/dev/disk/by-label/THZ-NixOS/swap/swapfile";
+      device = "/swap/swapfile";
       size = 8192; # 8GB
     }
   ];

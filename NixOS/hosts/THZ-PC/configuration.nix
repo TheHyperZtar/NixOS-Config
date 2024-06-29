@@ -52,6 +52,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    btop
     firefox
     kitty
     git
