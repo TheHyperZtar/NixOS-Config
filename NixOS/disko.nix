@@ -25,36 +25,21 @@
             name = "THZ-NixOS";
             size = "100%";
             content = {
-              type = "lvm_pv";
-              vg = "THZ-NixOS";
-            };
-          };
-        };
-      };
-    };
-    lvm_vg = {
-      THZ-NixOS = {
-        type = "lvm_vg";
-        lvs = {
-          THZ-NixOS = {
-            size = "100%FREE";
-            content = {
               type = "btrfs";
-              extraArgs = [ "-f -L THZ-NixOS" ];
-
+              extraArgs = [ "-f" ];
               subvolumes = {
                 "/root" = {
-                  mountOptions = ["subvol=root" "noatime"];
+                  mountOptions = [ "noatime" ];
                   mountpoint = "/";
                 };
 
                 "/home" = {
-                  mountOptions = ["subvol=home" "noatime"];
+                  mountOptions = [ "noatime" ];
                   mountpoint = "/home";
                 };
 
                 "/nix" = {
-                  mountOptions = ["subvol=nix" "noatime"];
+                  mountOptions = [ "noatime" ];
                   mountpoint = "/nix";
                 };
               };
