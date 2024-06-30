@@ -44,16 +44,17 @@
 
               subvolumes = {
                 "/root" = {
+                  mountOptions = ["subvol=root" "noatime"];
                   mountpoint = "/";
                 };
 
                 "/home" = {
-                  mountOptions = ["subvol=@home" "noatime"];
+                  mountOptions = ["subvol=home" "noatime"];
                   mountpoint = "/home";
                 };
 
                 "/nix" = {
-                  mountOptions = ["subvol=@nix" "noatime"];
+                  mountOptions = ["subvol=nix" "noatime"];
                   mountpoint = "/nix";
                 };
               };
