@@ -21,12 +21,12 @@
 
   {
     nixosConfigurations = {
-      THZ-PC = nixpkgs.lib.nixosSystem {
+      THZ-VM = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
           disko.nixosModules.disko
           (import ./disko.nix { device = "/dev/vda"; })
-          ./hosts/THZ-PC/configuration.nix
+          ./hosts/THZ-VM/configuration.nix
         ];
       };
     };
