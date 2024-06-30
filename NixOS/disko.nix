@@ -36,23 +36,23 @@
       THZ-NixOS = {
         type = "lvm_vg";
         lvs = {
-          root = {
+          THZ-NixOS = {
             size = "100%FREE";
             content = {
               type = "btrfs";
               extraArgs = [ "-f -L THZ-NixOS" ];
 
               subvolumes = {
-                "/@" = {
+                "/root" = {
                   mountpoint = "/";
                 };
 
-                "/@home" = {
+                "/home" = {
                   mountOptions = ["subvol=@home" "noatime"];
                   mountpoint = "/home";
                 };
 
-                "/@nix" = {
+                "/nix" = {
                   mountOptions = ["subvol=@nix" "noatime"];
                   mountpoint = "/nix";
                 };
