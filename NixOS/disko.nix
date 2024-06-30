@@ -52,6 +52,11 @@
                   mountpoint = "/home";
                 };
 
+                "/@persist" = {
+                  mountOptions = ["subvol=@persist" "noatime"];
+                  mountpoint = "/persist";
+                };
+
                 "/@nix" = {
                   mountOptions = ["subvol=@nix" "noatime"];
                   mountpoint = "/nix";
