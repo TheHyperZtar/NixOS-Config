@@ -17,7 +17,7 @@
               type = "filesystem";
               format = "vfat";
               mountpoint = "/boot";
-              extraArgs = [ "-L THZ-BOOT" ];
+              extraArgs = [ "-n THZ-BOOT" ];
               mountOptions = [ "noatime" ];
             };
           };
