@@ -87,7 +87,7 @@
               "/boot" = {
                 device = "/dev/disk/by-label/THZ-BOOT";
                 fsType = "vfat";
-                options = [ "noatime" ];
+                options = [ "defaults" ];
               };
 
               "/home" = {
