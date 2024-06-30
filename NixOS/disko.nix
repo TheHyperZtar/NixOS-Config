@@ -9,7 +9,7 @@
       content = {
         type = "gpt";
         partitions = {
-          Boot = {
+          THZ-BOOT = {
             name = "THZ-BOOT";
             size = "1G";
             type = "EF00";
@@ -21,19 +21,19 @@
               mountOptions = [ "noatime" ];
             };
           };
-          Root = {
+          THZ-NixOS = {
             name = "THZ-NixOS";
             size = "100%";
             content = {
               type = "lvm_pv";
-              vg = "root_vg";
+              vg = "THZ-NixOS";
             };
           };
         };
       };
     };
     lvm_vg = {
-      root_vg = {
+      THZ-NixOS = {
         type = "lvm_vg";
         lvs = {
           root = {
