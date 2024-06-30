@@ -14,6 +14,7 @@
     grub.device = "nodev";
     grub.efiSupport = true;
     grub.efiInstallAsRemovable = true;
+    efi.efiSysMountPoint = "/boot";
   };
 
   networking.hostName = "THZ-VM";
