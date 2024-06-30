@@ -3,7 +3,7 @@
 {
   imports =
     [
-      #./hardware-configuration.nix
+      ./hardware-configuration.nix
       ./../../disko.nix
     ];
 
@@ -16,7 +16,7 @@
     grub.efiInstallAsRemovable = true;
   };
 
-  networking.hostName = "THZ-PC";
+  networking.hostName = "THZ-VM";
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Mazatlan";
