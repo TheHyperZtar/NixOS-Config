@@ -24,9 +24,57 @@
       THZ-VM = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
-          disko.nixosModules.disko
-          (import ./disko.nix { device = "/dev/vda"; })
           ./hosts/THZ-VM/configuration.nix
+          disko.nixosModules.disko
+          {
+            disko.devices = {
+              disk.main = {
+                device = "/dev/disk/by-id/some-disk-id";
+                type = "disk";
+                content = {
+                  type = "gpt";
+                  partitions = {
+                    THZ-BOOT = {
+                      name = "THZ-BOOT";
+                      size = "1G";
+                      type = "EF00";
+                      content = {
+                        type = "filesystem";
+                        format = "vfat";
+                        mountpoint = "/boot";
+                        extraArgs = [ "-n THZ-BOOT" ];
+                        mountOptions = [ "noatime" ];
+                      };
+                    };
+                    THZ-NixOS = {
+                      name = "THZ-NixOS";
+                      size = "100%";
+                      content = {
+                        type = "btrfs";
+                        extraArgs = [ "-f -L THZ-NixOS" ];
+                        subvolumes = {
+                          "/root" = {
+                            mountOptions = [ "noatime" ];
+                            mountpoint = "/";
+                          };
+
+                          "/home" = {
+                            mountOptions = [ "noatime" ];
+                            mountpoint = "/home";
+                          };
+
+                          "/nix" = {
+                            mountOptions = [ "noatime" ];
+                            mountpoint = "/nix";
+                          };
+                        };
+                      };
+                    };
+                  };
+                };
+              };
+            };
+          }
         ];
       };
     };
