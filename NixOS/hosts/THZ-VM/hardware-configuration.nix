@@ -13,32 +13,6 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems = lib.mkForce {
-    "/" = {
-      device = "/dev/disk/by-uuid/1020e64b-1bdb-47b0-9138-3beeff9c6296";
-      fsType = "btrfs";
-      options = [ "subvol=root" ];
-    };
-
-    "/nix" = {
-      device = "/dev/disk/by-uuid/1020e64b-1bdb-47b0-9138-3beeff9c6296";
-      fsType = "btrfs";
-      options = [ "subvol=nix" ];
-    };
-
-    "/home" = {
-      device = "/dev/disk/by-uuid/1020e64b-1bdb-47b0-9138-3beeff9c6296";
-      fsType = "btrfs";
-      options = [ "subvol=home" ];
-    };
-
-    "/boot" = {
-      device = "/dev/disk/by-uuid/12CE-A600";
-      fsType = "vfat";
-      options = [ "defaults" ];
-    };
-  };
-
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
