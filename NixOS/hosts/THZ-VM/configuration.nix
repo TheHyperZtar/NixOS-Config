@@ -4,7 +4,6 @@
   imports =
     [
       ./hardware-configuration.nix
-      #./../../disko.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -13,7 +12,7 @@
     grub.enable = true;
     grub.device = "nodev";
     grub.efiSupport = true;
-    grub.efiInstallAsRemovable = true;
+    efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
   };
 
